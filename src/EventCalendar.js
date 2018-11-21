@@ -40,6 +40,18 @@ export default class EventCalendar extends React.Component {
     }
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (this.props.resetOnInitDateChange && this.props.initDate != nextProps.initDate) {
+      this._goToPage(this.props.size);
+    } else {
+      if (this.state.index > nextState.index && this.props.onMoveRight) {
+        this.props.onMoveRight(nextState.date);
+      } else if (this.state.index < nextState.index && this.props.onMoveLeft) {
+        this.props.onMoveLeft(nextState.date);
+      }
+    }
+  }
+
   static defaultProps = {
     size: 30,
     initDate: new Date(),
@@ -164,23 +176,24 @@ export default class EventCalendar extends React.Component {
 
     return (
       <View style={[this.styles.container, { width }]}>
-        <View style={this.styles.header}>
-          <TouchableOpacity
-            style={this.styles.arrowButton}
-            onPress={this._previous}
-          >
-            {leftIcon}
-          </TouchableOpacity>
-          <View style={this.styles.headerTextContainer}>
-            <Text style={this.styles.headerText}>{headerText}</Text>
-          </View>
-          <TouchableOpacity
-            style={this.styles.arrowButton}
-            onPress={this._next}
-          >
-            {rightIcon}
-          </TouchableOpacity>
-        </View>
+        { this.props.hideDateHeader ? null :
+          <View style={this.styles.header}>
+            <TouchableOpacity
+              style={this.styles.arrowButton}
+              onPress={this._previous}
+            >
+              {leftIcon}
+            </TouchableOpacity>
+            <View style={this.styles.headerTextContainer}>
+              <Text style={this.styles.headerText}>{headerText}</Text>
+            </View>
+            <TouchableOpacity
+              style={this.styles.arrowButton}
+              onPress={this._next}
+            >
+              {rightIcon}
+            </TouchableOpacity>
+          </View> }
         <VirtualizedList
           ref="calendar"
           windowSize={2}
