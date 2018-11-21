@@ -1,7 +1,11 @@
 # React Native Event Calendar
 A React Native iOS style calendar implemented using VirtualizedList.
-This package now incorporates the work of https://github.com/duyluonglc/
-who kindly added some featues and improvements.
+Forked from https://github.com/joshjhargreaves/react-native-event-calendar/ but with some improvements:
+- NPM package is up to date
+- Callback on moving between dates left and right
+- Ability to hide the navigation header
+
+Below is as per readme from https://github.com/joshjhargreaves/react-native-event-calendar/ 
 
 ## Demo
 <img src="https://raw.githubusercontent.com/joshyhargreaves/react-native-event-calendar/master/demo/screenshot.png" width="360">
@@ -28,6 +32,9 @@ end | PropTypes.number | End time (default 24)
 headerIconLeft | PropTypes.element | If specified, renders this element instead of the default left arrow image
 headerIconRight | PropTypes.element | If specified, renders this element instead of the default right arrow image
 _goToDate | (date : string) => void | Requires the reference set using the `onRef` prop. E.g. `ref._goToDate('2017-09-07')`
+onMoveLeft | PropTypes.function | Function fired if navigating date back
+onMoveRight | PropTypes.function | Function fired if navigating date forward
+hideDateHeader | PropTypes.boolean | Choose to show date navigation header or not (defaults to false)
 
 `EventCalendar` can be configured through a `styles` prop whereby any of the components in the calendar can be styled.
 ```
@@ -53,7 +60,7 @@ Event color can be overridden by specifying a `color` attribute inside the event
 ```
 
 ## Install
-`npm i --save react-native-events-calendar`
+`npm i --save react-native-event-calendar-customized`
 
 ## Contributing
 The `example` project is configured to use the 'update-to-date' src of your checkout of
