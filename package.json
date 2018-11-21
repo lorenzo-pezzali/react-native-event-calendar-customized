@@ -38,7 +38,6 @@
     "react-native": "^0.44.0"
   },
   "author": "Harry Veera",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/hariv1505/react-native-event-calendar/issues"
   },

@@ -4,7 +4,6 @@ Forked from https://github.com/joshjhargreaves/react-native-event-calendar/ but 
 - NPM package is up to date
 - Callback on moving between dates left and right
 - Ability to hide the navigation header
-- Page resets if the initDate is changed, back to the initial date
 
 Below is as per readme from https://github.com/joshjhargreaves/react-native-event-calendar/ 
 

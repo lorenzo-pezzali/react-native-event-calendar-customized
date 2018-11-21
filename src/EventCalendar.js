@@ -41,14 +41,10 @@ export default class EventCalendar extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.props.resetOnInitDateChange && this.props.initDate != nextProps.initDate) {
-      this._goToPage(this.props.size);
-    } else {
-      if (this.state.index > nextState.index && this.props.onMoveRight) {
-        this.props.onMoveRight(nextState.date);
-      } else if (this.state.index < nextState.index && this.props.onMoveLeft) {
-        this.props.onMoveLeft(nextState.date);
-      }
+    if (this.state.index > nextState.index && this.props.onMoveRight) {
+      this.props.onMoveRight(nextState.date);
+    } else if (this.state.index < nextState.index && this.props.onMoveLeft) {
+      this.props.onMoveLeft(nextState.date);
     }
   }
 
