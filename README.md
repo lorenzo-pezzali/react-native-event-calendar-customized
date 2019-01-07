@@ -2,7 +2,6 @@
 A React Native iOS style calendar implemented using VirtualizedList.
 Forked from https://github.com/joshjhargreaves/react-native-event-calendar/ but with some improvements:
 - NPM package is up to date
-- Callback on moving between dates left and right
 - Ability to hide the navigation header
 
 Below is as per readme from https://github.com/joshjhargreaves/react-native-event-calendar/ 
