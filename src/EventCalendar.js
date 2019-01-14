@@ -95,7 +95,9 @@ export default class EventCalendar extends React.Component {
 
     return (
       <View style={[this.styles.container, { width }]}>
-        {this.props.hideDateHeader ? null : (
+        {this.props.onCreateDateHeader ? (
+          this.props.onCreateDateHeader(date)
+        ) : (
           <View style={this.styles.header}>
             <TouchableOpacity
               style={this.styles.arrowButton}
@@ -177,7 +179,7 @@ export default class EventCalendar extends React.Component {
   };
 
   render() {
-    const { width, virtualizedListProps, events, initDate } = this.props;
+    const { width, virtualizedListProps, events } = this.props;
 
     return (
       <View style={[this.styles.container, { width }]}>
