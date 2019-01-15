@@ -95,8 +95,8 @@ export default class EventCalendar extends React.Component {
 
     return (
       <View style={[this.styles.container, { width }]}>
-        {this.props.onCreateDateHeader ? (
-          this.props.onCreateDateHeader(date)
+        {this.props.renderDateHeader ? (
+          this.props.renderDateHeader(date)
         ) : (
           <View style={this.styles.header}>
             <TouchableOpacity
