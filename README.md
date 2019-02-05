@@ -3,6 +3,8 @@ A React Native iOS style calendar implemented using VirtualizedList.
 Forked from https://github.com/joshjhargreaves/react-native-event-calendar/ but with some improvements:
 - NPM package is up to date
 - Ability to hide the navigation header
+- Ability to scroll calendar (with option to not scroll header too)
+- Performance fix on detecting date change
 
 Below is as per readme from https://github.com/joshjhargreaves/react-native-event-calendar/ 
 
@@ -31,10 +33,9 @@ end | PropTypes.number | End time (default 24)
 headerIconLeft | PropTypes.element | If specified, renders this element instead of the default left arrow image
 headerIconRight | PropTypes.element | If specified, renders this element instead of the default right arrow image
 _goToDate | (date : string) => void | Requires the reference set using the `onRef` prop. E.g. `ref._goToDate('2017-09-07')`
-onMoveLeft | PropTypes.function | Function fired if navigating date back
-onMoveRight | PropTypes.function | Function fired if navigating date forward
 hideDateHeader | PropTypes.boolean | Choose to show date navigation header or not (defaults to false)
 resetOnInitDateChange | PropTypes.boolean | Reset page back to initial date if initDate is changed (default is false)
+scrollable | PropTypes.string | Determine whether to make calendar scrollable or not. Can be `true`, `false`, or `'calendarOnly'` (default to false)
 
 `EventCalendar` can be configured through a `styles` prop whereby any of the components in the calendar can be styled.
 ```
