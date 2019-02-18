@@ -17,7 +17,7 @@ function range(from, to) {
   return Array.from(Array(to), (_, i) => from + i);
 }
 
-export default class DayView extends React.PureComponent {
+export default class DayView extends React.Component {
   constructor(props) {
     super(props);
     this.calendarHeight = (props.end - props.start) * 100;
@@ -33,11 +33,20 @@ export default class DayView extends React.PureComponent {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(this.props) !== JSON.stringify(nextProps) ||
+      JSON.stringify(this.state) !== JSON.stringify(nextState)
+    );
+  }
+
   componentWillReceiveProps(nextProps) {
-    const width = nextProps.width - LEFT_MARGIN;
-    this.setState({
-      packedEvents: populateEvents(nextProps.events, width, nextProps.start),
-    });
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      const width = nextProps.width - LEFT_MARGIN;
+      this.setState({
+        packedEvents: populateEvents(nextProps.events, width, nextProps.start),
+      });
+    }
   }
 
   componentDidMount() {
@@ -156,10 +165,9 @@ export default class DayView extends React.PureComponent {
       return (
         <TouchableOpacity
           activeOpacity={0.5}
-          onPress={() =>
-            this._onEventTapped(this.props.events[event.index])
-          }
-          key={i} style={[styles.event, style, event.color && eventColor]}
+          onPress={() => this._onEventTapped(this.props.events[event.index])}
+          key={i}
+          style={[styles.event, style, event.color && eventColor]}
         >
           {this.props.renderEvent ? (
             this.props.renderEvent(event)
@@ -182,7 +190,7 @@ export default class DayView extends React.PureComponent {
                   {moment(event.end).format(formatTime)}
                 </Text>
               ) : null}
-              </View>
+            </View>
           )}
         </TouchableOpacity>
       );

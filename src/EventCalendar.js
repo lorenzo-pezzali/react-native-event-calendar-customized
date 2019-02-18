@@ -41,6 +41,13 @@ export default class EventCalendar extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      JSON.stringify(this.props) != JSON.stringify(nextProps) ||
+      JSON.stringify(this.state) != JSON.stringify(nextState)
+    );
+  }
+
   static defaultProps = {
     size: 30,
     initDate: new Date(),
@@ -94,8 +101,9 @@ export default class EventCalendar extends React.Component {
       ? date.format(formatHeader || 'DD MMMM YYYY').toUpperCase()
       : date.format(formatHeader || 'DD MMMM YYYY');
 
-    const header = this.props.renderDateHeader ? 
-      this.props.renderDateHeader(date) : 
+    const header = this.props.renderDateHeader ? (
+      this.props.renderDateHeader(date)
+    ) : (
       <View style={this.styles.header}>
         <TouchableOpacity
           style={this.styles.arrowButton}
@@ -106,38 +114,36 @@ export default class EventCalendar extends React.Component {
         <View style={this.styles.headerTextContainer}>
           <Text style={this.styles.headerText}>{headerText}</Text>
         </View>
-        <TouchableOpacity
-          style={this.styles.arrowButton}
-          onPress={this._next}
-        >
+        <TouchableOpacity style={this.styles.arrowButton} onPress={this._next}>
           {rightIcon}
         </TouchableOpacity>
-      </View>;
+      </View>
+    );
 
-    const content = <DayView
-          date={date}
-          index={index}
-          format24h={format24h}
-          formatHeader={this.props.formatHeader}
-          headerStyle={this.props.headerStyle}
-          renderEvent={this.props.renderEvent}
-          eventTapped={this.props.eventTapped}
-          events={item}
-          width={width}
-          styles={this.styles}
-          scrollToFirst={scrollToFirst}
-          start={start}
-          end={end}
-        />;
+    const content = (
+      <DayView
+        date={date}
+        index={index}
+        format24h={format24h}
+        formatHeader={this.props.formatHeader}
+        headerStyle={this.props.headerStyle}
+        renderEvent={this.props.renderEvent}
+        eventTapped={this.props.eventTapped}
+        events={item}
+        width={width}
+        styles={this.styles}
+        scrollToFirst={scrollToFirst}
+        start={start}
+        end={end}
+      />
+    );
 
     if (this.props.scrollable) {
       if (this.props.scrollable == 'calendarOnly') {
         return (
           <View style={[this.styles.container, { width }]}>
             {header}
-            <ScrollView style={{ flex: 1 }}>
-              {content}
-            </ScrollView>
+            <ScrollView style={{ flex: 1 }}>{content}</ScrollView>
           </View>
         );
       } else {
@@ -231,7 +237,6 @@ export default class EventCalendar extends React.Component {
             if (this.props.dateChanged) {
               this.props.dateChanged(date.format('YYYY-MM-DD'));
             }
-            this.setState({ index, date });
           }}
           {...virtualizedListProps}
         />
