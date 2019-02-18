@@ -5,6 +5,7 @@ Forked from https://github.com/joshjhargreaves/react-native-event-calendar/ but 
 - Ability to hide the navigation header
 - Ability to scroll calendar (with option to not scroll header too)
 - Performance fix on detecting date change
+- Performance fix on minimising reload of each day when swiping between dates
 
 Below is as per readme from https://github.com/joshjhargreaves/react-native-event-calendar/ 
 
