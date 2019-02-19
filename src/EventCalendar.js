@@ -101,69 +101,46 @@ export default class EventCalendar extends React.Component {
       ? date.format(formatHeader || 'DD MMMM YYYY').toUpperCase()
       : date.format(formatHeader || 'DD MMMM YYYY');
 
-    const header = this.props.renderDateHeader ? (
-      this.props.renderDateHeader(date)
-    ) : (
-      <View style={this.styles.header}>
-        <TouchableOpacity
-          style={this.styles.arrowButton}
-          onPress={this._previous}
-        >
-          {leftIcon}
-        </TouchableOpacity>
-        <View style={this.styles.headerTextContainer}>
-          <Text style={this.styles.headerText}>{headerText}</Text>
-        </View>
-        <TouchableOpacity style={this.styles.arrowButton} onPress={this._next}>
-          {rightIcon}
-        </TouchableOpacity>
+    return (
+      <View style={[this.styles.container, { width }]}>
+        {this.props.renderDateHeader ? (
+          this.props.renderDateHeader(date)
+        ) : (
+          <View style={this.styles.header}>
+            <TouchableOpacity
+              style={this.styles.arrowButton}
+              onPress={this._previous}
+            >
+              {leftIcon}
+            </TouchableOpacity>
+            <View style={this.styles.headerTextContainer}>
+              <Text style={this.styles.headerText}>{headerText}</Text>
+            </View>
+            <TouchableOpacity
+              style={this.styles.arrowButton}
+              onPress={this._next}
+            >
+              {rightIcon}
+            </TouchableOpacity>
+          </View>
+        )}
+        <DayView
+          date={date}
+          index={index}
+          format24h={format24h}
+          formatHeader={this.props.formatHeader}
+          headerStyle={this.props.headerStyle}
+          renderEvent={this.props.renderEvent}
+          eventTapped={this.props.eventTapped}
+          events={item}
+          width={width}
+          styles={this.styles}
+          scrollToFirst={scrollToFirst}
+          start={start}
+          end={end}
+        />
       </View>
     );
-
-    const content = (
-      <DayView
-        date={date}
-        index={index}
-        format24h={format24h}
-        formatHeader={this.props.formatHeader}
-        headerStyle={this.props.headerStyle}
-        renderEvent={this.props.renderEvent}
-        eventTapped={this.props.eventTapped}
-        events={item}
-        width={width}
-        styles={this.styles}
-        scrollToFirst={scrollToFirst}
-        start={start}
-        end={end}
-      />
-    );
-
-    if (this.props.scrollable) {
-      if (this.props.scrollable == 'calendarOnly') {
-        return (
-          <View style={[this.styles.container, { width }]}>
-            {header}
-            <ScrollView style={{ flex: 1 }}>{content}</ScrollView>
-          </View>
-        );
-      } else {
-        return (
-          <View style={[this.styles.container, { width }]}>
-            <ScrollView style={{ flex: 1 }}>
-              {header}
-              {content}
-            </ScrollView>
-          </View>
-        );
-      }
-    } else {
-      return (
-        <View style={[this.styles.container, { width }]}>
-          {header}
-          {content}
-        </View>
-      );
-    }
   }
 
   _goToPage(index) {
