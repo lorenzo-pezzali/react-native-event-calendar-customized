@@ -23,12 +23,13 @@ export default class DayView extends React.Component {
     this.calendarHeight = (props.end - props.start) * 100;
     const width = props.width - LEFT_MARGIN;
     const packedEvents = populateEvents(props.events, width, props.start);
-    let initPosition =
-      _.min(_.map(packedEvents, 'top')) -
-      this.calendarHeight / (props.end - props.start);
-    initPosition = initPosition < 0 ? 0 : initPosition;
     this.state = {
-      _scrollY: initPosition,
+      _scrollY: this.getInitPosToScrollTo(
+        packedEvents,
+        this.calendarHeight,
+        props.start,
+        props.end
+      ),
       packedEvents,
     };
   }
@@ -43,14 +44,35 @@ export default class DayView extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
       const width = nextProps.width - LEFT_MARGIN;
+      let packedEvents = populateEvents(
+        nextProps.events,
+        width,
+        nextProps.start
+      );
       this.setState({
-        packedEvents: populateEvents(nextProps.events, width, nextProps.start),
+        _scrollY: this.getInitPosToScrollTo(
+          packedEvents,
+          this.calendarHeight,
+          nextProps.start,
+          nextProps.end
+        ),
+        packedEvents,
       });
+      if (this.props.events.length == 0 && nextProps.events.length > 0) {
+        this.scrollToFirst();
+      }
     }
   }
 
   componentDidMount() {
     this.props.scrollToFirst && this.scrollToFirst();
+  }
+
+  getInitPosToScrollTo(packedEvents, calendarHeight, start, end) {
+    let initPosition =
+      _.min(_.map(packedEvents, 'top')) - calendarHeight / (end - start);
+    initPosition = initPosition < 0 ? 0 : initPosition;
+    return initPosition;
   }
 
   scrollToFirst() {
