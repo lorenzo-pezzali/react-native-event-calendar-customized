@@ -225,6 +225,12 @@ export default class DayView extends React.Component {
     );
   }
 
+  _outsideClickHandler() {
+    if (this.props.outsideClickHandler) {
+      this.props.outsideClickHandler();
+    }
+  }
+
   render() {
     const { styles } = this.props;
     return (
@@ -238,6 +244,17 @@ export default class DayView extends React.Component {
         {this._renderLines()}
         {this._renderEvents()}
         {this._renderRedLine()}
+
+        {this.props.outsideClickHandler ? (
+          <TouchableOpacity
+            onPress={() => this._outsideClickHandler()}
+            style={{
+              zIndex: -99,
+              height: this.calendarHeight,
+              top: 0,
+            }}
+          />
+        ) : null}
       </ScrollView>
     );
   }
