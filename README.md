@@ -7,6 +7,7 @@ Forked from https://github.com/joshjhargreaves/react-native-event-calendar/ but 
 - Performance fix on detecting date change
 - Performance fix on minimising reload of each day when swiping between dates
 - More natural feel around scrolling to first event of the day when switching between days
+- Callback when clicking on whitespace within the calendar day (i.e. outside of the displayed events)
 
 Below is as per readme from https://github.com/joshjhargreaves/react-native-event-calendar/ 
 
