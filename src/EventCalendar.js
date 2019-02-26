@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  ScrollView,
 } from 'react-native';
 import _ from 'lodash';
 import moment from 'moment';
@@ -64,12 +63,11 @@ export default class EventCalendar extends React.Component {
       index - this.props.size,
       'days'
     );
+    const startDate = date.clone().startOf('day');
+    const endDate = date.clone().endOf('day');
     return _.filter(events, event => {
       const eventStartTime = moment(event.start);
-      return (
-        eventStartTime >= date.clone().startOf('day') &&
-        eventStartTime <= date.clone().endOf('day')
-      );
+      return eventStartTime >= startDate && eventStartTime <= endDate;
     });
   }
 
@@ -148,12 +146,7 @@ export default class EventCalendar extends React.Component {
     if (index <= 0 || index >= this.props.size * 2) {
       return;
     }
-    const date = moment(this.props.initDate).add(
-      index - this.props.size,
-      'days'
-    );
     this.refs.calendar.scrollToIndex({ index, animated: false });
-    this.setState({ index, date });
   }
 
   _goToDate(date) {
