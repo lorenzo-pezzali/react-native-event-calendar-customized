@@ -26,6 +26,11 @@ export default class EventCalendar extends React.Component {
       date: moment(this.props.initDate),
       index: this.props.size,
     };
+
+    this._renderItem = this._renderItem.bind(this);
+    this._getItem = this._getItem.bind(this);
+    this._getItemLayout = this._getItemLayout.bind(this);
+    this._getItemCount = this._getItemCount.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +57,10 @@ export default class EventCalendar extends React.Component {
     initDate: new Date(),
     formatHeader: 'DD MMMM YYYY',
   };
+
+  _getItemCount() {
+    return this.props.size * 2;
+  }
 
   _getItemLayout(data, index) {
     const { width } = this.props;
@@ -191,13 +200,13 @@ export default class EventCalendar extends React.Component {
           initialNumToRender={2}
           initialScrollIndex={this.props.size}
           data={events}
-          getItemCount={() => this.props.size * 2}
-          getItem={this._getItem.bind(this)}
+          getItemCount={this._getItemCount}
+          getItem={this._getItem}
           keyExtractor={(item, index) => index.toString()}
-          getItemLayout={this._getItemLayout.bind(this)}
+          getItemLayout={this._getItemLayout}
           horizontal
           pagingEnabled
-          renderItem={this._renderItem.bind(this)}
+          renderItem={this._renderItem}
           style={{ width: width }}
           onMomentumScrollEnd={event => {
             const index = parseInt(event.nativeEvent.contentOffset.x / width);
