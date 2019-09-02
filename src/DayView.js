@@ -1,5 +1,11 @@
 // @flow
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import populateEvents from './Packer';
 import React from 'react';
 import moment from 'moment';
