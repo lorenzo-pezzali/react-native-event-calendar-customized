@@ -255,7 +255,7 @@ export default class DayView extends React.Component {
         refreshControl={
           <RefreshControl
             refreshing={this.props.dragDownRefreshing}
-            onRefresh={this._onRefreshHandler}
+            onRefresh={() => this._onRefreshHandler()}
           />
         }
       >
