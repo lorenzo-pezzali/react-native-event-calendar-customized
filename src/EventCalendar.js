@@ -140,6 +140,8 @@ export default class EventCalendar extends React.Component {
           renderEvent={this.props.renderEvent}
           eventTapped={this.props.eventTapped}
           outsideClickHandler={this.props.outsideClickHandler}
+          dragDownRefreshing={this.props.dragDownRefreshing}
+          onRefreshHandler={this.props.onRefreshHandler}
           events={item}
           width={width}
           styles={this.styles}

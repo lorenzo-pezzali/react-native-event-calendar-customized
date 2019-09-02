@@ -231,6 +231,12 @@ export default class DayView extends React.Component {
     }
   }
 
+  _onRefreshHandler() {
+    if (this.props.onRefreshHandler) {
+      this.props.onRefreshHandler();
+    }
+  }
+
   render() {
     const { styles } = this.props;
     return (
@@ -240,6 +246,12 @@ export default class DayView extends React.Component {
           styles.contentStyle,
           { width: this.props.width },
         ]}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.props.dragDownRefreshing}
+            onRefresh={this._onRefreshHandler}
+          />
+        }
       >
         {this._renderLines()}
         {this._renderEvents()}
