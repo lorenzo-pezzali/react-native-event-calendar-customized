@@ -68,15 +68,8 @@ export default class EventCalendar extends React.Component {
   }
 
   _getItem(events, index) {
-    const date = moment(this.props.initDate).add(
-      index - this.props.size,
-      'days'
-    );
-    const startDate = date.clone().startOf('day');
-    const endDate = date.clone().endOf('day');
     return _.filter(events, event => {
-      const eventStartTime = moment(event.start);
-      return eventStartTime >= startDate && eventStartTime <= endDate;
+      return event.dayOfYear == index + 1;
     });
   }
 
